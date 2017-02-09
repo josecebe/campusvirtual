@@ -902,6 +902,9 @@ public class AssignmentAction extends PagedResourceActionII
 	/** Sakai.property for enable/disable anonymous grading */
 	private static final String SAK_PROP_ENABLE_ANON_GRADING = "assignment.anon.grading.enabled";
 
+	/** Sakai.property for check add due date checkbox */
+	private static final String SAK_PROP_CHECK_ADD_DUE_DATE = "assignment.due.date.checked";
+
 	// SAK-29314
 	private boolean nextUngraded = false;
 	private boolean prevUngraded = false;
@@ -2530,8 +2533,15 @@ public class AssignmentAction extends PagedResourceActionII
 		context.put("name_GradePoints", NEW_ASSIGNMENT_GRADE_POINTS);
 		context.put("name_Description", NEW_ASSIGNMENT_DESCRIPTION);
 		// do not show the choice when there is no Schedule tool yet
-		if (state.getAttribute(CALENDAR) != null || state.getAttribute(ADDITIONAL_CALENDAR) != null)
-			context.put("name_CheckAddDueDate", ResourceProperties.NEW_ASSIGNMENT_CHECK_ADD_DUE_DATE);
+		if (state.getAttribute(CALENDAR) != null || state.getAttribute(ADDITIONAL_CALENDAR) != null) {
+			boolean checkAddDueData = ServerConfigurationService.getBoolean(SAK_PROP_CHECK_ADD_DUE_DATE, false);
+			boolean oldCheckAddDueData = Boolean.parseBoolean(state.getAttribute(ResourceProperties.NEW_ASSIGNMENT_CHECK_ADD_DUE_DATE).toString());
+			if (checkAddDueData) {
+				context.put("value_CheckAddDueDate", "true");
+			} else {
+				context.put("value_CheckAddDueDate", Boolean.toString(oldCheckAddDueData));
+			}
+		}
 
 		context.put("name_CheckHideDueDate", NEW_ASSIGNMENT_CHECK_HIDE_DUE_DATE);
 		//don't show the choice when there is no Announcement tool yet
