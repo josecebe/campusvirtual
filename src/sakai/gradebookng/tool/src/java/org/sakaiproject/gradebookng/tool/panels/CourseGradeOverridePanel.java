@@ -104,9 +104,14 @@ public class CourseGradeOverridePanel extends Panel {
 
 					final Map<String, Double> schema = gbInfo.getSelectedGradingScaleBottomPercents();
 					if (!schema.containsKey(newGrade)) {
-						error(new ResourceModel("message.addcoursegradeoverride.invalid").getObject());
-						target.addChildren(form, FeedbackPanel.class);
-						return;
+						try {
+							newGrade = getGradeFromNumber(newGrade, schema, currentUserLocale);
+						}
+						catch (NumberFormatException e)	{
+							error(new ResourceModel("message.addcoursegradeoverride.invalid").getObject());
+							target.addChildren(form, FeedbackPanel.class);
+							return;
+						}
 					}
 				}
 
