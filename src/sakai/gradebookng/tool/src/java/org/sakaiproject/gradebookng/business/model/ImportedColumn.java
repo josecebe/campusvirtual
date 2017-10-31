@@ -37,6 +37,7 @@ public class ImportedColumn implements Serializable {
 		COMMENTS,
 		USER_ID,
 		USER_NAME,
+		USER_DNI,
 		IGNORE;
 	}
 
@@ -45,7 +46,7 @@ public class ImportedColumn implements Serializable {
 	 * @return
 	 */
 	public boolean isIgnorable() {
-		if(this.type == Type.USER_ID || this.type == Type.USER_NAME || this.type == Type.IGNORE) {
+		if(this.type == Type.USER_ID || this.type == Type.USER_NAME || this.type == Type.USER_DNI || this.type == Type.IGNORE) {
 			return true;
 		}
 		return false;

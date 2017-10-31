@@ -49,6 +49,7 @@ public class ImportGradesHelper {
 	// column positions we care about. 0 is first column.
 	public final static int USER_ID_POS = 0;
 	public final static int USER_NAME_POS = 1;
+	public final static int USER_DNI_POS = 2;
 
 	// patterns for detecting column headers and their types
 	final static Pattern ASSIGNMENT_WITH_POINTS_PATTERN = Pattern.compile("([^\\*\\[\\]\\*]+\\[[0-9]+(\\.[0-9][0-9]?)?\\])");
@@ -491,6 +492,8 @@ public class ImportGradesHelper {
 				column.setType(ImportedColumn.Type.USER_ID);
 			} else if(i == USER_NAME_POS) {
 				column.setType(ImportedColumn.Type.USER_NAME);
+			} else if(i == USER_DNI_POS) {
+				column.setType(ImportedColumn.Type.USER_DNI);
 			} else {
 				column = parseHeaderToColumn(trim(line[i]));
 			}
